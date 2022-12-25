@@ -77,12 +77,13 @@ public class Task8Test {
 
     @Test
     void hasSamePersonTest() {
+        Instant createdAt = Instant.now();
         List<Person> persons1 = List.of(
-                new Person(1, "Илья", "Крюк", "Константинович", Instant.now()),
-                new Person(2, "Михаил", "Дроздов", "Михайлович", Instant.now()));
+                new Person(1, "Илья", "Крюк", "Константинович", createdAt),
+                new Person(2, "Михаил", "Дроздов", "Михайлович", createdAt));
         List<Person> persons2 = List.of(
-                new Person(1, "Илья", "Крюк", "Константинович", Instant.now()),
-                new Person(3, "Артур", "Дроздов", "Михайлович", Instant.now()));
+                new Person(1, "Илья", "Крюк", "Константинович", createdAt),
+                new Person(3, "Артур", "Дроздов", "Михайлович", createdAt));
         assertEquals(true, task.hasSamePersons(persons1, persons2));
 
     }
