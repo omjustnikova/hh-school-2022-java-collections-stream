@@ -76,7 +76,7 @@ public class Task8Test {
     }
 
     @Test
-    void hasSamePersonTest() {
+    void hasSamePersonsTest() {
         Instant createdAt = Instant.now();
         List<Person> persons1 = List.of(
                 new Person(1, "Илья", "Крюк", "Константинович", createdAt),
