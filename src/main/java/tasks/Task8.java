@@ -21,7 +21,7 @@ public class Task8 {
 
   //Не хотим выдывать апи нашу фальшивую персону, поэтому конвертим начиная со второй
   public List<String> getFirstNames(List<Person> persons) {
-   if (persons == null || persons.isEmpty()) {
+   if (persons == null) {
       return Collections.emptyList();
    }
    return persons.stream().skip(getFakedPersonsCount())
@@ -31,7 +31,7 @@ public class Task8 {
 
   //ну и различные имена тоже хочется
   public Set<String> getDifferentNames(List<Person> persons) {
-    if (persons == null || persons.isEmpty()) {
+    if (persons == null) {
       return Collections.emptySet();
     }
     return getFirstNames(persons).stream().distinct().collect(Collectors.toSet());
@@ -57,7 +57,7 @@ public class Task8 {
 
   // словарь id персоны -> ее имя
   public Map<Integer, String> getPersonFullNames(Collection<Person> persons) {
-    if (persons == null || persons.isEmpty()) {
+    if (persons == null) {
       return Collections.emptyMap();
     }
     return persons.stream().collect(Collectors.toMap(person -> person.getId(), person -> getFullName(person)));
