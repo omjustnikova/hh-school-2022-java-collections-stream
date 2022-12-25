@@ -1,12 +1,8 @@
 package tasks;
 
 import common.Person;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -24,64 +20,69 @@ public class Task8 {
   private long count;
 
   //Не хотим выдывать апи нашу фальшивую персону, поэтому конвертим начиная со второй
-  public List<String> getNames(List<Person> persons) {
-    if (persons.size() == 0) {
+  public List<String> getFirstNames(List<Person> persons) {
+   if (persons == null || persons.isEmpty()) {
       return Collections.emptyList();
-    }
-    persons.remove(0);
-    return persons.stream().map(Person::getFirstName).collect(Collectors.toList());
+   }
+   return persons.stream().skip(getFakedPersonsCount())
+            .map(Person::getFirstName)
+            .collect(Collectors.toList());
   }
 
   //ну и различные имена тоже хочется
   public Set<String> getDifferentNames(List<Person> persons) {
-    return getNames(persons).stream().distinct().collect(Collectors.toSet());
+    if (persons == null || persons.isEmpty()) {
+      return Collections.emptySet();
+    }
+    return getFirstNames(persons).stream().distinct().collect(Collectors.toSet());
   }
 
   //Для фронтов выдадим полное имя, а то сами не могут
-  public String convertPersonToString(Person person) {
+  public String getFullName(Person person) {
     String result = "";
+    if (person == null) {
+      return result;
+    }
     if (person.getSecondName() != null) {
       result += person.getSecondName();
     }
-
     if (person.getFirstName() != null) {
       result += " " + person.getFirstName();
     }
-
-    if (person.getSecondName() != null) {
-      result += " " + person.getSecondName();
+    if (person.getMiddleName() != null) {
+      result += " " + person.getMiddleName();
     }
     return result;
   }
 
   // словарь id персоны -> ее имя
-  public Map<Integer, String> getPersonNames(Collection<Person> persons) {
-    Map<Integer, String> map = new HashMap<>(1);
-    for (Person person : persons) {
-      if (!map.containsKey(person.getId())) {
-        map.put(person.getId(), convertPersonToString(person));
-      }
+  public Map<Integer, String> getPersonFullNames(Collection<Person> persons) {
+    if (persons == null || persons.isEmpty()) {
+      return Collections.emptyMap();
     }
-    return map;
+    return persons.stream().collect(Collectors.toMap(person -> person.getId(), person -> getFullName(person)));
   }
 
   // есть ли совпадающие в двух коллекциях персоны?
   public boolean hasSamePersons(Collection<Person> persons1, Collection<Person> persons2) {
-    boolean has = false;
-    for (Person person1 : persons1) {
-      for (Person person2 : persons2) {
-        if (person1.equals(person2)) {
-          has = true;
-        }
-      }
+    boolean result = false;
+    if (persons1 == null || persons2 == null) {
+      return result;
     }
-    return has;
+    long sizeOfAllPersons = persons1.size() + persons2.size();
+    long sizeOfDistinctPersons = Stream.concat(persons1.stream(), persons2.stream()).distinct().count();
+    return sizeOfAllPersons != sizeOfDistinctPersons;
   }
 
   //...
   public long countEven(Stream<Integer> numbers) {
-    count = 0;
-    numbers.filter(num -> num % 2 == 0).forEach(num -> count++);
-    return count;
+    if (numbers == null) {
+      return 0;
+    }
+    return numbers.filter(num -> num % 2 == 0).count();
+  }
+
+  private int getFakedPersonsCount() {
+    return 1;
   }
 }
