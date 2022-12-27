@@ -56,7 +56,7 @@ public class Task8 {
     if (persons == null) {
       return Collections.emptyMap();
     }
-    return persons.stream().collect(Collectors.toMap(person -> person.getId(), person -> getFullName(person)));
+    return persons.stream().collect(Collectors.toMap(Person::getId, this::getFullName));
   }
 
   // есть ли совпадающие в двух коллекциях персоны?
