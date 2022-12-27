@@ -76,7 +76,9 @@ public class Task8 {
     if (numbers == null) {
       return 0;
     }
-    return numbers.filter(num -> num % 2 == 0).count();
+    return numbers.filter(Objects::nonNull)
+                  .filter(num -> num % 2 == 0)
+                  .count();
   }
 
 }

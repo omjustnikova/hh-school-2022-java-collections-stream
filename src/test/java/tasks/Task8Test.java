@@ -110,4 +110,10 @@ public class Task8Test {
     void countEvenTest3() {
         assertEquals(0, task.countEven(null));
     }
+
+    @Test
+    void countEvenTest4() {
+        List<Integer> integers = Arrays.asList(1, 1, null, 2);
+        assertEquals(1, task.countEven(integers.stream()));
+    }
 }
