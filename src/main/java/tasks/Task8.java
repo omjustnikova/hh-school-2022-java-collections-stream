@@ -17,6 +17,7 @@ P.P.S Здесь ваши правки желательно прокоммент
  */
 public class Task8 {
 
+  public static final int FAKED_PERSON_COUNT = 1;
   private long count;
 
   //Не хотим выдывать апи нашу фальшивую персону, поэтому конвертим начиная со второй
@@ -24,7 +25,7 @@ public class Task8 {
    if (persons == null) {
       return Collections.emptyList();
    }
-   return persons.stream().skip(getFakedPersonsCount())
+   return persons.stream().skip(FAKED_PERSON_COUNT)
             .map(Person::getFirstName)
             .collect(Collectors.toList());
   }
@@ -82,7 +83,4 @@ public class Task8 {
     return numbers.filter(num -> num % 2 == 0).count();
   }
 
-  private int getFakedPersonsCount() {
-    return 1;
-  }
 }
