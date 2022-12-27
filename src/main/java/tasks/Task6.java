@@ -19,17 +19,17 @@ public class Task6 {
                                                   Map<Integer, Set<Integer>> personAreaIds,
                                                   Collection<Area> areas) {
 
-    Map<Person, Set<String>> personsWithAreaNames = persons.stream()
-            .collect(Collectors.toMap(person -> person,
-                                      person -> personAreaIds.get(person.getId()).stream()
-                                                      .map(id -> areas.stream().filter(area -> area.getId().equals(id))
-                                                      .findAny().get().getName())
-                                                      .collect(Collectors.toSet())));
-    Map<Person, Set<String>> personWithNameAreaMapping = personsWithAreaNames.entrySet().stream()
-            .collect(Collectors.toMap(e->e.getKey(),
-                                      e -> e.getValue().stream()
-                                              .map(areaName -> e.getKey().getFirstName() + " - " + areaName)
-                                              .collect(Collectors.toSet())));
+
+    Map<Integer, String> areaMap = areas.stream()
+                                        .collect(Collectors.toMap(area -> area.getId(),
+                                                                  area -> area.getName()));
+    Map<Person, Set<String>> personWithNameAreaMapping =
+            persons.stream().collect(
+                    Collectors.toMap(person -> person,
+                                     person -> personAreaIds.get(person.getId()).stream()
+                                               .map(areaId -> person.getFirstName() + " - " + areaMap.get(areaId))
+                                               .collect(Collectors.toSet())));
+
     return personWithNameAreaMapping.values().stream()
             .flatMap(mappingString -> mappingString.stream())
             .collect(Collectors.toSet());
