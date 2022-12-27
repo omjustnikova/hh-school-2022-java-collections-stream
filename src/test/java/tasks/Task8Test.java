@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.Instant;
 import java.util.*;
+import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -115,5 +116,14 @@ public class Task8Test {
     void countEvenTest4() {
         List<Integer> integers = Arrays.asList(1, 1, null, 2);
         assertEquals(1, task.countEven(integers.stream()));
+    }
+
+    //todo: we should find the better way to implement this test
+    @Test
+    void countEvenTest5() {
+        int arrayCapacity = 10000000;
+        List<Integer> integers =new ArrayList<>(arrayCapacity);
+        IntStream.range(0,arrayCapacity).forEach(i -> integers.add(2));
+        assertEquals(arrayCapacity, task.countEven(integers.parallelStream()));
     }
 }

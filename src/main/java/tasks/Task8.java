@@ -76,9 +76,14 @@ public class Task8 {
     if (numbers == null) {
       return 0;
     }
-    return numbers.filter(Objects::nonNull)
+    //the previous implementation was added to check the test failure
+    count = 0;
+    numbers.filter(Objects::nonNull).filter(num -> num % 2 == 0).forEach(num -> count++);
+    return count;
+    //the current implementation was commented
+    /*return numbers.filter(Objects::nonNull)
                   .filter(num -> num % 2 == 0)
-                  .count();
+                  .count();*/
   }
 
 }
