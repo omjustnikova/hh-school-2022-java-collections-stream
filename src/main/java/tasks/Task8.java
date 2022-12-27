@@ -36,7 +36,7 @@ public class Task8 {
     if (persons == null) {
       return Collections.emptySet();
     }
-    return getFirstNames(persons).stream().distinct().collect(Collectors.toSet());
+    return getFirstNames(persons).stream().collect(Collectors.toSet());
   }
 
   //Для фронтов выдадим полное имя, а то сами не могут
