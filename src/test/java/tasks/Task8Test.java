@@ -59,6 +59,18 @@ public class Task8Test {
     }
 
     @Test
+    void getFullNameTest3() {
+        Person person = new Person(1, "Илья", "Крюк", "", Instant.now());
+        assertEquals("-Крюк Илья-", "-" + task.getFullName(person) + "-");
+    }
+
+    @Test
+    void getFullNameTest4() {
+        Person person = new Person(1, "Илья", null, "Константинович", Instant.now());
+        assertEquals("-Илья Константинович-", "-" + task.getFullName(person) + "-");
+    }
+
+    @Test
     void getPersonFullNamesTest1() {
         List<Person> persons = List.of(
                 new Person(1, "Илья", "Крюк", "Константинович", Instant.now()),
