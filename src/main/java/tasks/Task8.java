@@ -45,8 +45,7 @@ public class Task8 {
     if (person == null) {
       return result;
     }
-    List<String> fullNameParts = Arrays.asList(person.getSecondName(), person.getFirstName(), person.getMiddleName());
-    return fullNameParts.stream()
+    return Stream.of(person.getSecondName(), person.getFirstName(), person.getMiddleName())
             .filter(Objects::nonNull)
             .filter(Predicate.not(String::isEmpty))
             .collect(Collectors.joining(" "));
