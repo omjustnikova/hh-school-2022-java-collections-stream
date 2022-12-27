@@ -3,6 +3,7 @@ package tasks;
 import common.Person;
 
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -44,16 +45,11 @@ public class Task8 {
     if (person == null) {
       return result;
     }
-    if (person.getSecondName() != null) {
-      result += person.getSecondName();
-    }
-    if (person.getFirstName() != null) {
-      result += " " + person.getFirstName();
-    }
-    if (person.getMiddleName() != null) {
-      result += " " + person.getMiddleName();
-    }
-    return result;
+    List<String> fullNameParts = Arrays.asList(person.getSecondName(), person.getFirstName(), person.getMiddleName());
+    return fullNameParts.stream()
+            .filter(Objects::nonNull)
+            .filter(Predicate.not(String::isEmpty))
+            .collect(Collectors.joining(" "));
   }
 
   // словарь id персоны -> ее имя
