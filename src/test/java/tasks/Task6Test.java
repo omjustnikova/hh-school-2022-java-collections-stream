@@ -38,4 +38,18 @@ public class Task6Test {
         Task6.getPersonDescriptions(persons, personAreaIds, areas)
     );
   }
+
+  @Test
+  void test3() {
+    List<Person> persons = List.of(
+            new Person(1, "Oleg", Instant.now()),
+            new Person(2, "Vasya", Instant.now())
+    );
+    Map<Integer, Set<Integer>> personAreaIds = Map.of(1, Set.of(1, 2), 2, Set.of(2, 3));
+    List<Area> areas = List.of(new Area(2, "Omsk"), new Area(3, "Ivanovo"), new Area(1, "Moscow"), new Area(2, "Spb"));
+    assertEquals(
+            Set.of("Oleg - Moscow", "Oleg - Omsk", "Vasya - Omsk", "Vasya - Ivanovo"),
+            Task6.getPersonDescriptions(persons, personAreaIds, areas)
+    );
+  }
 }

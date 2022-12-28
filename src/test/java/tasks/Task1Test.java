@@ -3,11 +3,15 @@ package tasks;
 import common.Person;
 import common.PersonService;
 import java.time.Instant;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -37,6 +41,27 @@ public class Task1Test {
     when(personService.findPersons(eq(ids)))
         .thenReturn(persons);
     assertEquals(ids, task.findOrderedPersons(ids).stream().map(Person::getId).collect(Collectors.toList()));
+  }
+
+  @ParameterizedTest
+  @MethodSource("generateData")
+  public void testMissingPerson(List<Integer> ids) {
+    Set<Person> persons = ids.stream()
+            .filter(person -> person != 1)
+            .sorted()
+            .map(id -> new Person(id, "firstName", "secondName", Instant.now()))
+            .collect(Collectors.toSet());
+    when(personService.findPersons(eq(ids)))
+            .thenReturn(persons);
+    assertEquals(ids.stream().filter(id -> id != 1).toList(), task.findOrderedPersons(ids).stream()
+            .map(Person::getId)
+            .filter(Objects::nonNull)
+            .collect(Collectors.toList()));
+  }
+
+  @Test
+  public void testNullIds() {
+    assertEquals(Collections.emptyList(), task.findOrderedPersons(null));
   }
 
   private static Stream<Arguments> generateData() {
