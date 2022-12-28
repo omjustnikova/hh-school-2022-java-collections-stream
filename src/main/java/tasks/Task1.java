@@ -4,6 +4,7 @@ import common.Person;
 import common.PersonService;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /*
 Задача 1
@@ -11,7 +12,7 @@ import java.util.*;
 (он выдает несортированный Set<Person>, внутренняя работа сервиса неизвестна)
 нужно их отсортировать в том же порядке, что и переданные id.
 Оценить асимпотику работы
-Асиптотика = O(n^2)
+Асиптотика = O(n)
  */
 public class Task1 {
 
@@ -23,6 +24,12 @@ public class Task1 {
 
   public List<Person> findOrderedPersons(List<Integer> personIds) {
     Set<Person> persons = personService.findPersons(personIds);
-    return persons.stream().sorted(Comparator.comparing(person -> personIds.indexOf(person.getId()))).toList();
+    Map<Integer, Person> idEntityMapping = persons.stream()
+            .collect(Collectors.toMap(Person::getId, person -> person));
+
+    return personIds.stream()
+            .map(personId -> idEntityMapping.get(personId))
+            .filter(Objects::nonNull)
+            .toList();
   }
 }
