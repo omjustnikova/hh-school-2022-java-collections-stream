@@ -22,18 +22,12 @@ public class Task6 {
 
 
     Map<Integer, String> areaMap = areas.stream()
-                                        .collect(Collectors.toMap(Area::getId,
-                                                                  Area::getName));
-    Map<Person, Set<String>> personWithNameAreaMapping =
-            persons.stream().collect(
-                    Collectors.toMap(person -> person,
-                                     person -> personAreaIds.get(person.getId()).stream()
-                                               .map(areaId -> getNameAreaMapping(person.getFirstName(),
-                                                                                 areaMap.get(areaId)))
-                                               .collect(Collectors.toSet())));
+                                    .collect(Collectors.toMap(Area::getId, Area::getName));
 
-    return personWithNameAreaMapping.values().stream()
-            .flatMap(mappingString -> mappingString.stream())
+    return persons.stream()
+            .flatMap(person -> personAreaIds.get(person.getId()).stream()
+                                                 .map(areaId -> getNameAreaMapping(person.getFirstName(),
+                                                                                   areaMap.get(areaId))))
             .collect(Collectors.toSet());
   }
 
