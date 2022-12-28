@@ -28,7 +28,7 @@ public class Task1 {
     }
     Set<Person> persons = personService.findPersons(personIds);
     Map<Integer, Person> idEntityMapping = persons.stream()
-            .collect(Collectors.toMap(Person::getId, person -> person));
+            .collect(Collectors.toMap(Person::getId, person -> person, (person1, person2) -> person1));
     return personIds.stream()
             .map(personId -> idEntityMapping.get(personId))
             .filter(Objects::nonNull)
