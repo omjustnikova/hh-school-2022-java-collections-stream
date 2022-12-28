@@ -65,9 +65,7 @@ public class Task8 {
     if (persons1 == null || persons2 == null) {
       return result;
     }
-    long sizeOfAllPersons = persons1.size() + persons2.size();
-    long sizeOfDistinctPersons = Stream.concat(persons1.stream(), persons2.stream()).distinct().count();
-    return sizeOfAllPersons != sizeOfDistinctPersons;
+    return !Collections.disjoint(persons1, persons2);
   }
 
   //...
