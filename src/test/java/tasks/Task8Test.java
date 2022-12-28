@@ -93,6 +93,17 @@ public class Task8Test {
     }
 
     @Test
+    void getPersonFullNamesTest4() {
+        Instant createdAt = Instant.now();
+        List<Person> persons = List.of(
+                new Person(2, "Михаил", "Дроздов", "Михайлович", createdAt),
+                new Person(2, "Михаил", "Дроздов", "Михайлович", createdAt));
+        Map<Integer, String> personFullNames = Map.of(
+                2, "Дроздов Михаил Михайлович");
+        assertTrue(Objects.equals(personFullNames,task.getPersonFullNames(persons)));
+    }
+
+    @Test
     void hasSamePersonsTest() {
         Instant createdAt = Instant.now();
         List<Person> persons1 = List.of(
