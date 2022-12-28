@@ -32,6 +32,7 @@ public class Task6 {
   }
 
   public static String getNameAreaMapping(String firstName, String areaName) {
-    return Stream.of(firstName, areaName).collect(Collectors.joining(" - "));
+    return Stream.of(firstName, areaName)
+            .collect(Collectors.joining(" - "));
   }
 }
