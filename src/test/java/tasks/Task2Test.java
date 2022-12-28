@@ -13,7 +13,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 public class Task2Test {
 
-  private static Person person1, person2, person3, person4;
+  private static Person person1, person2, person3, person4, person5;
 
   @BeforeAll
   public static void before() {
@@ -22,6 +22,7 @@ public class Task2Test {
     person2 = new Person(2, "Person 2", time.plusSeconds(1));
     person3 = new Person(3, "Person 3", time.minusSeconds(1));
     person4 = new Person(4, "Person 4", time.plusSeconds(2));
+    person5 = new Person(5, "Person 5", null);
 
   }
 
@@ -31,7 +32,8 @@ public class Task2Test {
         Arguments.of(Set.of(person1, person2), Set.of(person3, person4), 5, List.of(3, 1, 2, 4)),
         Arguments.of(Set.of(person1, person2), Set.of(person3, person4), 0, List.of()),
         Arguments.of(Set.of(), Set.of(person1, person2), 2, List.of(1, 2)),
-        Arguments.of(Set.of(person1, person2), Set.of(), 2, List.of(1, 2))
+        Arguments.of(Set.of(person1, person2), Set.of(), 2, List.of(1, 2)),
+        Arguments.of(Set.of(person1, person5), Set.of(), 2, List.of(5, 1))
     );
   }
 
