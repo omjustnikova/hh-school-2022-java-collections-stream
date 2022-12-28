@@ -64,7 +64,9 @@ public class Task8 {
     if (persons1 == null || persons2 == null) {
       return false;
     }
-    return persons1.stream().filter(Objects::nonNull).anyMatch(person -> persons2.contains(person));
+    return persons1.stream()
+            .filter(Objects::nonNull)
+            .anyMatch(person -> persons2.contains(person));
   }
 
   //...
