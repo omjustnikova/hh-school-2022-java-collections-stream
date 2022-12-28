@@ -61,11 +61,10 @@ public class Task8 {
 
   // есть ли совпадающие в двух коллекциях персоны?
   public boolean hasSamePersons(Collection<Person> persons1, Collection<Person> persons2) {
-    boolean result = false;
     if (persons1 == null || persons2 == null) {
-      return result;
+      return false;
     }
-    return !Collections.disjoint(persons1, persons2);
+    return persons1.stream().filter(Objects::nonNull).anyMatch(person -> persons2.contains(person));
   }
 
   //...

@@ -96,6 +96,32 @@ public class Task8Test {
     }
 
     @Test
+    void hasSamePersonsTest1() {
+        Instant createdAt = Instant.now();
+        List<Person> persons1 = Arrays.asList(
+                new Person(1, "Илья", "Крюк", "Константинович", createdAt),
+                null);
+        List<Person> persons2 = List.of(
+            new Person(1, "Илья", "Крюк", "Константинович", createdAt),
+            new Person(3, "Артур", "Дроздов", "Михайлович", createdAt));
+        assertEquals(true, task.hasSamePersons(persons1, persons2));
+        assertEquals(true, task.hasSamePersons(persons2, persons1));
+
+    }
+
+    @Test
+    void hasSamePersonsTest2() {
+        Instant createdAt = Instant.now();
+        List<Person> persons1 = new ArrayList<>();
+        persons1.add(null);
+        List<Person> persons2 = new ArrayList<>();
+        persons2.add(null);
+        assertEquals(false, task.hasSamePersons(persons1, persons2));
+        assertEquals(false, task.hasSamePersons(persons2, persons1));
+
+    }
+
+    @Test
     void countEvenTest1() {
         List<Integer> integers = List.of(1, 1, 1, 2);
         assertEquals(1, task.countEven(integers.stream()));
