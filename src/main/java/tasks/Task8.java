@@ -59,7 +59,7 @@ public class Task8 {
     return persons.stream()
             .distinct()
             .filter(person -> person.getId() != null)
-            .collect(Collectors.toMap(Person::getId, this::getFullName));
+            .collect(Collectors.toMap(Person::getId, this::getFullName, (person1, person2) -> person1));
   }
 
   // есть ли совпадающие в двух коллекциях персоны?
