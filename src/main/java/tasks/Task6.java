@@ -22,7 +22,7 @@ public class Task6 {
 
 
     Map<Integer, String> areaMap = areas.stream()
-                                    .collect(Collectors.toMap(Area::getId, Area::getName));
+                                    .collect(Collectors.toMap(Area::getId, Area::getName, (area1, area2) -> area1));
 
     return persons.stream()
             .flatMap(person -> personAreaIds.get(person.getId()).stream()
