@@ -23,10 +23,12 @@ public class Task1 {
   }
 
   public List<Person> findOrderedPersons(List<Integer> personIds) {
+    if (personIds == null) {
+      return Collections.emptyList();
+    }
     Set<Person> persons = personService.findPersons(personIds);
     Map<Integer, Person> idEntityMapping = persons.stream()
             .collect(Collectors.toMap(Person::getId, person -> person));
-
     return personIds.stream()
             .map(personId -> idEntityMapping.get(personId))
             .filter(Objects::nonNull)

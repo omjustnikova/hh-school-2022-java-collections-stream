@@ -3,12 +3,15 @@ package tasks;
 import common.Person;
 import common.PersonService;
 import java.time.Instant;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -54,6 +57,11 @@ public class Task1Test {
             .map(Person::getId)
             .filter(Objects::nonNull)
             .collect(Collectors.toList()));
+  }
+
+  @Test
+  public void testNullIds() {
+    assertEquals(Collections.emptyList(), task.findOrderedPersons(null));
   }
 
   private static Stream<Arguments> generateData() {
